@@ -12,12 +12,12 @@
                FontAttributes="Bold"
                HorizontalOptions="Center" />
 
-        <!-- 📅 Date Picker -->
+        <!-- Date Picker -->
         <DatePicker x:Name="datePicker"
                     Date="{x:Static sys:DateTime.Today}"
                     DateSelected="OnDateSelected" />
 
-        <!-- 🎯 Daily Goal -->
+        <!-- Daily Goal -->
         <Entry x:Name="goalCalorieEntry"
                Placeholder="Daily calorie goal (e.g. 2000)"
                Keyboard="Numeric" />
@@ -51,7 +51,7 @@
                HorizontalOptions="End"
                TextColor="Gray" />
         
-        <!-- 🧠 DAILY CALORIE FEEDBACK -->
+        <!-- DAILY CALORIE FEEDBACK -->
         <Label x:Name="calorieStatusLabel"
                FontSize="14"
                Margin="0,5,0,10"

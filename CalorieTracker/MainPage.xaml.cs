@@ -8,10 +8,10 @@ public partial class MainPage : ContentPage
 {
     private readonly CalorieDatabase _database;
 
-    // 🎯 User-defined daily goal
+    // User-defined daily goal
     private int _dailyGoal;
 
-    // 📅 Selected date
+    // Selected date
     private DateTime _selectedDate = DateTime.Today;
 
     public MainPage(CalorieDatabase database)
@@ -19,18 +19,18 @@ public partial class MainPage : ContentPage
         InitializeComponent();
         _database = database;
 
-        // 🔹 Load saved goal or default
+        // Load saved goal or default
         _dailyGoal = Preferences.Get("DailyGoal", 2000);
         goalCalorieEntry.Text = _dailyGoal.ToString();
 
-        // 🔹 DatePicker default
+        // DatePicker default
         _selectedDate = DateTime.Today;
         datePicker.Date = _selectedDate;
 
         LoadData();
     }
 
-    // 📅 DatePicker changed
+    // DatePicker changed
     private void OnDateSelected(object sender, DateChangedEventArgs e)
     {
         _selectedDate = e.NewDate.Date;
@@ -41,7 +41,7 @@ public partial class MainPage : ContentPage
     {
         var allEntries = await _database.GetAllEntriesAsync();
 
-        // 🔹 Filter by selected date
+        // Filter by selected date
         var selectedDayEntries = allEntries
             .Where(x => x.Date.Date == _selectedDate)
             .ToList();
@@ -51,7 +51,7 @@ public partial class MainPage : ContentPage
         int totalCalories = selectedDayEntries.Sum(x => x.Calories);
         totalCaloriesLabel.Text = $"Total Calories: {totalCalories}";
 
-        // 🧠 DAILY CALORIE FEEDBACK (goal-based)
+        // DAILY CALORIE FEEDBACK (goal-based)
         if (totalCalories < _dailyGoal * 0.6)
         {
             calorieStatusLabel.Text = "You are eating too little today ⚠️";
@@ -68,13 +68,13 @@ public partial class MainPage : ContentPage
             calorieStatusLabel.TextColor = Colors.Red;
         }
 
-        // 📊 PROGRESS BAR UPDATE
+        // PROGRESS BAR UPDATE
         double progress = (double)totalCalories / _dailyGoal;
         progress = Math.Min(progress, 1.0); // %100’ü geçmesin
 
         calorieProgressBar.Progress = progress;
 
-        // 🎨 Progress color
+        // Progress color
         if (progress < 0.6)
         {
             calorieProgressBar.ProgressColor = Colors.Orange;
@@ -92,7 +92,7 @@ public partial class MainPage : ContentPage
         progressTextLabel.Text = $"{totalCalories} / {_dailyGoal} kcal";
     }
 
-    // 💾 Save daily goal
+    // Save daily goal
     private async void OnSaveGoalClicked(object sender, EventArgs e)
     {
         if (!int.TryParse(goalCalorieEntry.Text, out int goal) || goal <= 0)

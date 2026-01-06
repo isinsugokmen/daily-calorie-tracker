@@ -15,16 +15,16 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
             });
 
-        // 🔹 SQLite database path
+        // SQLite database path
         string dbPath = Path.Combine(
             FileSystem.AppDataDirectory,
             "calories.db");
 
-        // 🔹 Database service
+        // Database service
         builder.Services.AddSingleton(
             new CalorieDatabase(dbPath));
 
-        // 🔹 MainPage (constructor injection için ZORUNLU)
+        // MainPage (constructor injection için ZORUNLU)
         builder.Services.AddSingleton<MainPage>();
 
         return builder.Build();
