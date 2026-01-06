@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
+             x:Class="CalorieTracker.MainPage">
+
+    <VerticalStackLayout Padding="20" Spacing="12">
+
+        <!-- Title -->
+        <Label Text="Daily Calorie Tracker"
+               FontSize="22"
+               FontAttributes="Bold"
+               HorizontalOptions="Center" />
+
+        <!-- 📅 Date Picker -->
+        <DatePicker x:Name="datePicker"
+                    Date="{x:Static sys:DateTime.Today}"
+                    DateSelected="OnDateSelected" />
+
+        <!-- 🎯 Daily Goal -->
+        <Entry x:Name="goalCalorieEntry"
+               Placeholder="Daily calorie goal (e.g. 2000)"
+               Keyboard="Numeric" />
+
+        <Button Text="Save Goal"
+                Clicked="OnSaveGoalClicked" />
+
+        <!-- Food input -->
+        <Entry x:Name="foodNameEntry"
+               Placeholder="Food name" />
+
+        <Entry x:Name="calorieEntry"
+               Placeholder="Calories"
+               Keyboard="Numeric" />
+
+        <Button Text="Add Food"
+                Clicked="OnAddClicked" />
+
+        <!-- Total -->
+        <Label x:Name="totalCaloriesLabel"
+               FontSize="18"
+               FontAttributes="Bold"
+               Text="Total Calories: 0" />
+        
+        <ProgressBar x:Name="calorieProgressBar"
+                     HeightRequest="8"
+                     Progress="0"
+                     ProgressColor="Green" />
+        <Label x:Name="progressTextLabel"
+               FontSize="12"
+               HorizontalOptions="End"
+               TextColor="Gray" />
+        
+        <!-- 🧠 DAILY CALORIE FEEDBACK -->
+        <Label x:Name="calorieStatusLabel"
+               FontSize="14"
+               Margin="0,5,0,10"
+               TextColor="Gray" />
+
+        <!-- Food list -->
+        <CollectionView x:Name="foodList">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems Mode="Execute">
+                                <SwipeItem
+                                    Text="Delete"
+                                    BackgroundColor="Red"
+                                    Invoked="OnDeleteInvoked" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Frame Padding="10"
+                               Margin="5"
+                               CornerRadius="10"
+                               HasShadow="True">
+
+                            <VerticalStackLayout>
+                                <Label Text="{Binding FoodName}"
+                                       FontAttributes="Bold" />
+                                <Label Text="{Binding Calories, StringFormat='Calories: {0}'}" />
+                            </VerticalStackLayout>
+
+                        </Frame>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </VerticalStackLayout>
+
+</ContentPage>
